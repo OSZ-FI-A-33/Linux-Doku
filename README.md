@@ -244,7 +244,7 @@ apt upgrade -y
 sudo apt install openvpn easy-rsa
 ```
 
-## OpenVPN Server Certificate Authority (CA) Setup
+### OpenVPN Server Certificate Authority (CA) Setup
 
 ```bash
 make-cadir /etc/openvpn/easy-rsa
