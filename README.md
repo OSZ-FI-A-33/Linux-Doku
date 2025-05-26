@@ -1,6 +1,6 @@
 # Linux Level 3 Dokumentation
 
-## Active Directory Setup 
+## Active Directory Setup
 
 ### Netzwerkkonfiguration
 
@@ -145,7 +145,7 @@ realm                      # Domain-Join Informationen anzeigen
 exit                       # Sitzung verlassen
 ```
 
-# 🧩 Weitere Konfigurationsschritte für Active Directory-Anbindung
+## 🧩 Weitere Konfigurationsschritte für Active Directory-Anbindung
 
 ### Grundlegende Netzwerkprüfung
 
@@ -229,7 +229,6 @@ pam-auth-update
 ```bash
 history
 ```
-
 
 ## VPN Server Setup
 
