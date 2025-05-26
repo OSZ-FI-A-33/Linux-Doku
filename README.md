@@ -1,5 +1,9 @@
 # Linux Level 3 Dokumentation
 
+## Netzwerkplan
+
+![Netzwerkplan](Netzwerkplan_Level3.drawio.png)
+
 ## Active Directory Setup
 
 ### Netzwerkkonfiguration
