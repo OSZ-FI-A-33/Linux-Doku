@@ -1,13 +1,6 @@
 # Linux Level 3 Dokumentation
 
-## Active Directory Setup 
-
-### Systemverwaltung & Neustart
-
-```bash
-shutdown now               # System sofort herunterfahren
-reboot                     # System neu starten
-```
+## Active Directory Setup
 
 ### Netzwerkkonfiguration
 
@@ -152,8 +145,90 @@ realm                      # Domain-Join Informationen anzeigen
 exit                       # Sitzung verlassen
 ```
 
+## 🧩 Weitere Konfigurationsschritte für Active Directory-Anbindung
 
+### Grundlegende Netzwerkprüfung
 
+```bash
+ping 10.1.1.1
+ip a
+```
+
+### Hostname und SSH-Konfiguration
+
+```bash
+nano /etc/hostname
+hostname
+reboot
+```
+
+```bash
+nano /etc/ssh/sshd_config
+service sshd restart
+```
+
+### Paketverwaltung und Updates
+
+```bash
+apt install update  # (Hinweis: sollte apt update heißen)
+apt update
+apt upgrade
+apt-get update
+apt-get install -y sssd-ad sssd-tools realmd adcli sudo
+apt-get install -y krb5-user sssd-krb5 packagekit
+```
+
+### Kerberos-Konfiguration
+
+```bash
+cat <<EOF > /etc/krb5.conf
+[libdefaults]
+default_domain = EIER.SCHAUKELN
+rdns = false
+EOF
+```
+
+### DNS-Konfiguration
+
+```bash
+cat <<EOF > /etc/resolv.conf
+nameserver 10.1.1.5
+nameserver 10.130.255.254
+search eier.schaukeln
+EOF
+```
+
+### Benutzer authentifizieren
+
+```bash
+kinit konsti@EIER.SCHAUKELN
+realm join -v -U konsti EIER.SCHAUKELN
+```
+
+### Sudo-Konfiguration
+
+```bash
+cat <<EOF > /etc/sudoers
+# (Standard sudoers-Konfiguration)
+# ...
+%sudo   ALL=(ALL:ALL) ALL
+%domain\ admins@eier.schaukeln ALL=(ALL) NOPASSWD:ALL
+
+@includedir /etc/sudoers.d
+EOF
+```
+
+### PAM konfigurieren
+
+```bash
+pam-auth-update
+```
+
+### Verlauf anzeigen
+
+```bash
+history
+```
 
 ## VPN Server Setup
 
