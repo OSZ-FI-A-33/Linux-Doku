@@ -1,5 +1,160 @@
 # Linux Level 3 Dokumentation
 
+## Active Directory Setup 
+
+### Systemverwaltung & Neustart
+
+```bash
+shutdown now               # System sofort herunterfahren
+reboot                     # System neu starten
+```
+
+### Netzwerkkonfiguration
+
+```bash
+nano /etc/network/interfaces      # Netzwerkschnittstellen bearbeiten
+service networking restart        # Netzwerkdienste neu starten
+ip a                              # IP-Adressen und Netzwerkschnittstellen anzeigen
+ping 8.8.8.8                      # Verbindung zu Google DNS prüfen
+hostname -A                      # Vollständigen Hostnamen anzeigen
+nano /etc/hostname               # Hostnamen konfigurieren
+cat /etc/hostname                # Hostnamen anzeigen
+nano /etc/hosts                  # Lokale Hostdatei bearbeiten
+```
+
+### SSH-Konfiguration
+
+```bash
+nano /etc/ssh/sshd_config        # SSH-Serverkonfiguration bearbeiten
+service sshd restart             # SSH-Dienst neu starten
+```
+
+### Paketverwaltung
+
+```bash
+apt update                       # Paketliste aktualisieren
+apt upgrade -y                   # Systempakete aktualisieren
+sudo apt-get update              # Alternative zu apt update
+apt-get update                   # Noch eine Variante
+apt install sudo                 # sudo installieren (wenn nicht vorhanden)
+```
+
+### DNS und Namensauflösung
+
+```bash
+ping -c1 dc01.eier.schaukeln     # DNS-Auflösung testen
+nslookup                         # DNS-Abfrage starten
+nslookup dns.google              # DNS-Serverabfrage
+nslookup dns.google 1.1.1.1      # DNS-Abfrage über spezifischen Server
+unlink /etc/resolv.conf          # DNS-Konfigurationsdatei entfernen
+sudo unlink /etc/resolv.conf     # Mit Root-Rechten entfernen
+nano /etc/resolv.conf            # DNS-Konfiguration bearbeiten
+sudo nano /etc/resolv.conf       # Als Root bearbeiten
+```
+
+### systemd-resolved deaktivieren
+
+```bash
+sudo systemctl disable --now systemd-resolved   # Dienst sofort stoppen und deaktivieren
+systemctl disable --now systemd-resolved
+systemctl disable systemd-resolved
+systemctl disable resolved
+systemctl stop systemd-resolved
+```
+
+### Netzwerke neu starten
+
+```bash
+service systemd-networkd restart    # systemd-Netzwerkdienst neu starten
+service networking restart          # Netzwerkdienste neu starten
+```
+
+### UFW – Firewallstatus prüfen
+
+```bash
+ufw status                         # Status der UFW-Firewall anzeigen
+```
+
+### Samba Active Directory Einrichtung
+
+```bash
+sudo apt install -y acl attr samba samba-dsdb-modules samba-vfs-modules \
+smbclient winbind libpam-winbind libnss-winbind libpam-krb5 krb5-config \
+krb5-user dnsutils chrony net-tools
+```
+
+```bash
+sudo systemctl disable --now smbd nmbd winbind   # Alte Samba-Dienste stoppen
+sudo systemctl unmask samba-ad-dc                # AD-Modus freischalten
+sudo systemctl enable samba-ad-dc                # AD-Dienst aktivieren
+sudo mv /etc/samba/smb.conf /etc/samba/smb.conf.bak   # Alte Konfig sichern
+sudo mv /etc/krb5.conf /etc/krb5.conf.bak
+sudo samba-tool domain provision --use-rfc2307 --interactive  # AD Domain einrichten
+sudo cp /var/lib/samba/private/krb5.conf /etc/krb5.conf       # Neue Kerberos-Datei übernehmen
+sudo systemctl start samba-ad-dc
+sudo systemctl status samba-ad-dc
+```
+
+### Samba testen
+
+```bash
+smbclient //localhost/netlogon -U Administrator -c 'ls'  # Verbindung testen
+```
+
+### DNS-Tests & Kerberos
+
+```bash
+host -t SRV _ldap._tcp.eier.schaukeln
+host -t SRV _kerberos._udp.eier.schaukeln
+host -t A dc01.eier.schaukeln
+kinit administrator        # Kerberos-Ticket abrufen
+klist                      # Kerberos-Tickets anzeigen
+```
+
+### Benutzer- & Gruppenverwaltung
+
+```bash
+sudo samba-tool user create konsti Konsti-9012!
+sudo samba-tool user list
+sudo samba-tool user edit konsti
+sudo samba-tool user setpassword konsti
+sudo samba-tool user add leon
+sudo samba-tool user add ben
+```
+
+```bash
+sudo samba-tool group list
+sudo samba-tool group add FileAdmin
+sudo samba-tool group add Admins
+sudo samba-tool group add VPNAdmin
+sudo samba-tool group add GatewayAdmin
+sudo samba-tool group addmembers Admins konsti
+sudo samba-tool group addmembers Domain\ Admins konsti
+sudo samba-tool group addmember GatewayAdmins ben
+```
+
+### AD-Objekte & GPO-Verwaltung
+
+```bash
+sudo samba-tool computer list
+sudo samba-tool ou list
+sudo samba-tool gpo list
+sudo samba-tool gpo create sudoersfile
+sudo samba-tool gpo manage sudoers add domain\ admins ALL ALL
+sudo samba-tool gpo manage sudoers list
+```
+
+### Sonstige Tools & Tests
+
+```bash
+pam-auth-update --help     # PAM-Authentifizierungs-Hilfe anzeigen
+realm                      # Domain-Join Informationen anzeigen
+exit                       # Sitzung verlassen
+```
+
+
+
+
 ## VPN Server Setup
 
 ### Install OpenVPN
