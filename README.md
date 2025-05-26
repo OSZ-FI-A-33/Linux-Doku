@@ -2,13 +2,6 @@
 
 ## Active Directory Setup 
 
-### Systemverwaltung & Neustart
-
-```bash
-shutdown now               # System sofort herunterfahren
-reboot                     # System neu starten
-```
-
 ### Netzwerkkonfiguration
 
 ```bash
