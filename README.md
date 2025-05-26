@@ -236,13 +236,19 @@ history
 
 ## VPN Server Setup
 
-### Install OpenVPN
+### Install OpenVPN and Easy-RSA
 
 ```bash
 apt update
 apt upgrade -y
+sudo apt install openvpn easy-rsa
+```
+
+## OpenVPN Server Certificate Authority (CA) Setup
+
+```bash
 make-cadir /etc/openvpn/easy-rsa
-cd /etc/openvpn/easy-rsa
+/etc/openvpn/easy-rsa/easyrsa init-pki
 /etc/openvpn/easy-rsa/easyrsa build-ca
 /etc/openvpn/easy-rsa/easyrsa build-server-full server
 /etc/openvpn/easy-rsa/easyrsa gen-dh
@@ -250,6 +256,8 @@ openvpn --genkey secret /etc/openvpn/server/ta.key
 ```
 
 ### IP Forwarding (/etc/sysctl.conf)
+
+To enable IP forwarding, edit the `/etc/sysctl.conf` file and add or uncomment the following line:
 
 ```text
 net.ipv4.ip_forward=1
