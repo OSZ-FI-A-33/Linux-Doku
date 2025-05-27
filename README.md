@@ -533,4 +533,4 @@ ufw status verbose
 
 ### Routingtabelle
 
-![Routingtabelle](routingtabelle.PNG)
+![Routingtabelle](firewall.PNG)
