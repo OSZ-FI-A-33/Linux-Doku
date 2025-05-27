@@ -17,10 +17,10 @@
 ### Netzwerkkonfiguration
 
 ```bash
-nano /etc/network/interfaces      # Netzwerkschnittstellen bearbeiten
-service networking restart        # Netzwerkdienste neu starten
-ip a                              # IP-Adressen und Netzwerkschnittstellen anzeigen
-ping 8.8.8.8                      # Verbindung zu Google DNS prüfen
+nano /etc/network/interfaces     # Netzwerkschnittstellen bearbeiten
+service networking restart       # Netzwerkdienste neu starten
+ip a                             # IP-Adressen und Netzwerkschnittstellen anzeigen
+ping 8.8.8.8                     # Verbindung zu Google DNS prüfen
 hostname -A                      # Vollständigen Hostnamen anzeigen
 nano /etc/hostname               # Hostnamen konfigurieren
 cat /etc/hostname                # Hostnamen anzeigen
@@ -70,14 +70,14 @@ systemctl stop systemd-resolved
 ### Netzwerke neu starten
 
 ```bash
-service systemd-networkd restart    # systemd-Netzwerkdienst neu starten
-service networking restart          # Netzwerkdienste neu starten
+service systemd-networkd restart                # systemd-Netzwerkdienst neu starten
+service networking restart                      # Netzwerkdienste neu starten
 ```
 
 ### UFW – Firewallstatus prüfen
 
 ```bash
-ufw status                         # Status der UFW-Firewall anzeigen
+ufw status                                      # Status der UFW-Firewall anzeigen
 ```
 
 ### Samba Active Directory Einrichtung
@@ -89,10 +89,10 @@ krb5-user dnsutils chrony net-tools
 ```
 
 ```bash
-sudo systemctl disable --now smbd nmbd winbind   # Alte Samba-Dienste stoppen
-sudo systemctl unmask samba-ad-dc                # AD-Modus freischalten
-sudo systemctl enable samba-ad-dc                # AD-Dienst aktivieren
-sudo mv /etc/samba/smb.conf /etc/samba/smb.conf.bak   # Alte Konfig sichern
+sudo systemctl disable --now smbd nmbd winbind                # Alte Samba-Dienste stoppen
+sudo systemctl unmask samba-ad-dc                             # AD-Modus freischalten
+sudo systemctl enable samba-ad-dc                             # AD-Dienst aktivieren
+sudo mv /etc/samba/smb.conf /etc/samba/smb.conf.bak           # Alte Konfig sichern
 sudo mv /etc/krb5.conf /etc/krb5.conf.bak
 sudo samba-tool domain provision --use-rfc2307 --interactive  # AD Domain einrichten
 sudo cp /var/lib/samba/private/krb5.conf /etc/krb5.conf       # Neue Kerberos-Datei übernehmen
@@ -103,7 +103,7 @@ sudo systemctl status samba-ad-dc
 ### Samba testen
 
 ```bash
-smbclient //localhost/netlogon -U Administrator -c 'ls'  # Verbindung testen
+smbclient //localhost/netlogon -U Administrator -c 'ls'       # Verbindung testen
 ```
 
 ### DNS-Tests & Kerberos
@@ -112,8 +112,8 @@ smbclient //localhost/netlogon -U Administrator -c 'ls'  # Verbindung testen
 host -t SRV _ldap._tcp.eier.schaukeln
 host -t SRV _kerberos._udp.eier.schaukeln
 host -t A dc01.eier.schaukeln
-kinit administrator        # Kerberos-Ticket abrufen
-klist                      # Kerberos-Tickets anzeigen
+kinit administrator                                           # Kerberos-Ticket abrufen
+klist                                                         # Kerberos-Tickets anzeigen
 ```
 
 ### Benutzer- & Gruppenverwaltung
@@ -182,7 +182,6 @@ service sshd restart
 ### Paketverwaltung und Updates
 
 ```bash
-apt install update  # (Hinweis: sollte apt update heißen)
 apt update
 apt upgrade
 apt-get update
