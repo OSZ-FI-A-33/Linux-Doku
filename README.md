@@ -1,5 +1,13 @@
 # Linux Level 3 Dokumentation
 
+## Inhaltsverzeichnis
+
+- [Netzwerkplan](#netzwerkplan)
+- [Active Directory Setup](#active-directory-setup)
+- [Weitere Konfigurationsschritte für Active Directory-Anbindung](#weitere-konfigurationsschritte-für-active-directory-anbindung)
+- [VPN Server Setup](#vpn-server-setup)
+- [Firewall](#firewall)
+
 ## Netzwerkplan
 
 ![Netzwerkplan](Netzwerkplan_Level3.drawio.png)
@@ -149,7 +157,7 @@ realm                      # Domain-Join Informationen anzeigen
 exit                       # Sitzung verlassen
 ```
 
-## 🧩 Weitere Konfigurationsschritte für Active Directory-Anbindung
+## Weitere Konfigurationsschritte für Active Directory-Anbindung
 
 ### Grundlegende Netzwerkprüfung
 
