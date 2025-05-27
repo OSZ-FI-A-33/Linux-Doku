@@ -342,7 +342,7 @@ client-to-client
 explicit-exit-notify 1
 ```
 
-### Client Config File (/etc/openvpn/client.conf)
+### Client Config File (/etc/openvpn/server/client.conf)
 
 ```text
 ##############################################
