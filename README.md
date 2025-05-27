@@ -449,3 +449,52 @@ verb 3
 # Silence repeating messages
 ;mute 20
 ```
+
+## Firewall
+
+### installieren der Firewall
+> Gewählt wurde die __"Uncomplicated Firewall"__(UFW)
+``` bash
+sudo su -
+apt install ufw -y
+ufw status verbose
+```
+### Standartregeln setzen
+``` bash
+ufw default deny incoming
+ufw default allow outgoing
+```
+### Ports zulassen
+``` bash
+ufw allow 8080
+ufw allow 22
+ufw allow 80
+ufw allow 443
+ufw allow 3389
+ufw allow 1194
+ufw allow smtp
+ufw allow from 10.1.1.0/24
+```
+
+### Ports deaktivieren
+``` bash
+ufw reject telnet comment 'Telnet is unsecured'
+```
+
+### Logging der SSH und RDP aktivieren
+``` bash
+ufw logging on
+ufw allow log 22/tcp
+ufw allow log 3389/tcp
+```
+
+### UFW neuladen und status anzeigen
+``` bash
+ufw reload
+ufw status verbose
+```
+### Ausführung
+![FirewallAusführung](ausführung.PNG)
+
+### Routingtabelle
+![Routingtabelle](routingtabelle.PNG)
