@@ -284,10 +284,11 @@ net.ipv4.ip_forward=1
 Ort der Client-Dateien auf dem Server nach der Erstellung:
 
 ```text
+/etc/openvpn/server/client.conf
 /etc/openvpn/easy-rsa/pki/ca.crt
-/etc/openvpn/server/ta.key
 /etc/openvpn/easy-rsa/pki/issued/{client}.crt
 /etc/openvpn/easy-rsa/pki/private/{client}.key
+/etc/openvpn/server/ta.key
 ```
 
 ### Server Files
