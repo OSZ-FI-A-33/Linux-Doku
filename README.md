@@ -247,17 +247,19 @@ sudo apt install openvpn easy-rsa
 ### OpenVPN Server Certificate Authority (CA) Setup
 
 ```bash
-make-cadir /etc/openvpn/easy-rsa
-/etc/openvpn/easy-rsa/easyrsa init-pki
-/etc/openvpn/easy-rsa/easyrsa build-ca
-/etc/openvpn/easy-rsa/easyrsa build-server-full server
-/etc/openvpn/easy-rsa/easyrsa gen-dh
-openvpn --genkey secret /etc/openvpn/server/ta.key
+make-cadir /etc/openvpn/easy-rsa                            # Erstellt ein neues Easy-RSA-Arbeitsverzeichnis
+/etc/openvpn/easy-rsa/easyrsa init-pki                      # Initialisiert die PKI (Public Key Infrastructure)
+/etc/openvpn/easy-rsa/easyrsa build-ca                      # Erstellt ein neues Root-Zertifikat
+/etc/openvpn/easy-rsa/easyrsa build-server-full server      # Erstellt ein Server-Zertifikat und den dazugehörigen privaten Schlüssel für den OpenVPN-Server
+/etc/openvpn/easy-rsa/easyrsa gen-dh                        # Generiert die Diffie-Hellman-Parameter
+openvpn --genkey secret /etc/openvpn/server/ta.key          # Erstellt einen TLS-Authentifizierungs-Schlüssel
 ```
 
 ### IP Forwarding (/etc/sysctl.conf)
 
-To enable IP forwarding, edit the `/etc/sysctl.conf` file and add or uncomment the following line:
+Um IP Forwarding zu aktivieren, die Datei `/etc/sysctl.conf` bearbeiten und die folgende Zeile hinzufügen oder einkommentieren:
+
+```bash
 
 ```text
 net.ipv4.ip_forward=1
@@ -266,17 +268,32 @@ net.ipv4.ip_forward=1
 ### Create Client Files
 
 ```bash
-/etc/openvpn/easy-rsa/easyrsa gen-req {client} nopass
-/etc/openvpn/easy-rsa/easyrsa sign-req client {client}
+/etc/openvpn/easy-rsa/easyrsa gen-req {client} nopass       # Erstellt eine Zertifikatsanforderung für den Client
+/etc/openvpn/easy-rsa/easyrsa sign-req client {client}      # Signiert die Zertifikatsanforderung für den Client
 ```
 
 ### Client Files Location on Server after Creation
+
+Ort der Client-Dateien auf dem Server nach der Erstellung:
 
 ```text
 /etc/openvpn/easy-rsa/pki/ca.crt
 /etc/openvpn/server/ta.key
 /etc/openvpn/easy-rsa/pki/issued/{client}.crt
 /etc/openvpn/easy-rsa/pki/private/{client}.key
+```
+
+### Server Files
+
+Wichtige Server-Dateien, die für den OpenVPN-Server benötigt werden:
+
+```text
+/etc/openvpn/server.conf
+/etc/openvpn/easy-rsa/pki/ca.crt
+/etc/openvpn/easy-rsa/pki/issued/server.crt
+/etc/openvpn/easy-rsa/pki/private/server.key
+/etc/openvpn/easy-rsa/pki/dh.pem
+/etc/openvpn/server/ta.key
 ```
 
 ### Server Config File (/etc/openvpn/server.conf)
