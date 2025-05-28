@@ -329,8 +329,8 @@ keepalive 10 120
 tls-auth /etc/openvpn/server/ta.key 0
 auth-nocache
 
-cipher AES-256-CBC
-data-ciphers AES-256-CBC
+cipher AES-256-GCM
+data-ciphers AES-256-GCM
 
 persist-key
 persist-tun
@@ -461,7 +461,7 @@ tls-auth ta.key 1
 # Note that v2.4 client/server will automatically
 # negotiate AES-256-GCM in TLS mode.
 # See also the data-ciphers option in the manpage
-cipher AES-256-CBC
+cipher AES-256-GCM
 
 # Enable compression on the VPN link.
 # Don't enable this unless it is also
