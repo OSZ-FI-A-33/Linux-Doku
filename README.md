@@ -266,8 +266,6 @@ openvpn --genkey secret /etc/openvpn/server/ta.key          # Erstellt einen TLS
 
 Um IP Forwarding zu aktivieren, die Datei `/etc/sysctl.conf` bearbeiten und die folgende Zeile hinzufügen oder einkommentieren:
 
-```bash
-
 ```text
 net.ipv4.ip_forward=1
 ```
