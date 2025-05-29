@@ -434,8 +434,8 @@ persist-tun
 # for each client.  A single ca
 # file can be used for all clients.
 ca ca.crt
-cert client.crt
-key client.key
+cert {client}.crt
+key {client}.key
 
 # Verify server certificate by checking that the
 # certificate has the correct key usage set.
