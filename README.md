@@ -7,7 +7,7 @@
 - [Weitere Konfigurationsschritte für Active Directory-Anbindung](#weitere-konfigurationsschritte-für-active-directory-anbindung)
 - [VPN Server Setup](#vpn-server-setup)
 - [Firewall](#firewall)
-- [Mail-Server](#mailserver)
+- [Mail-Server](#mail-server)
 
 ## Netzwerkplan
 
