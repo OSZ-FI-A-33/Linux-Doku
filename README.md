@@ -7,6 +7,7 @@
 - [Weitere Konfigurationsschritte für Active Directory-Anbindung](#weitere-konfigurationsschritte-für-active-directory-anbindung)
 - [VPN Server Setup](#vpn-server-setup)
 - [Firewall](#firewall)
+- [Mail-Server](#mail-server)
 
 ## Netzwerkplan
 
@@ -533,3 +534,65 @@ ufw status verbose
 ### Routingtabelle
 
 ![Routingtabelle](firewall.PNG)
+
+## Mail-Server
+
+Install von Mailsoftware
+
+``` bash
+apt update && apt install postfix rspamd clamav clamav-daemon mailutils
+```
+
+### Postfix Configuration
+
+![image](https://github.com/user-attachments/assets/346d1d92-0f38-44d3-bf54-46435d3a00ca)
+
+![image](https://github.com/user-attachments/assets/59c06b11-09ad-4790-ae63-17d970a6fdbf)
+
+### Konfigurationsdatei bearbeiten /etc/postfix/main.cf
+``` bash
+nano /etc/postfix/main.cf
+
+myhostname = mail.eier.schaukeln
+mydomain = mail.eier.schaukeln
+myorigin = $mydomain
+inet_interfaces = loopback-only  # Nur lokale Verbindungen erlauben
+mydestination = $myhostname, localhost.$mydomain, localhost, $mydomain
+relayhost =  # (Leer lassen, kein Forwarding)
+mynetworks = 127.0.0.0/8  # Nur localhost darf Mails senden
+```
+
+### Hostname setzen
+
+``` bash
+sudo hostnamectl set-hostname mail.eier.schaukeln
+
+```
+
+``` bash
+nano /etc/hosts
+
+127.0.1.1 mail.eier.schaukeln
+
+```
+
+### Postfix neu starten
+
+``` bash
+sudo systemctl restart postfix
+```
+### Testmail mit lokalen User
+
+``` bash
+adduser user1
+
+echo "Testmail-Inhalt" | mail -s "Testbetreff" user1@mail.eier.schaukeln  
+```
+
+![image](https://github.com/user-attachments/assets/59a6935d-67c6-4bf6-baff-bbd0515621ef)
+
+
+
+
+
+
