@@ -8,6 +8,7 @@
 - [VPN Server Setup](#vpn-server-setup)
 - [Firewall](#firewall)
 - [Mail-Server](#mail-server)
+- [File-Server und Backup](#file-server-und-backup)
 
 ## Netzwerkplan
 
@@ -592,3 +593,91 @@ echo "Testmail-Inhalt" | mail -s "Testbetreff" user1@mail.eier.schaukeln
 ```
 
 ![image](https://github.com/user-attachments/assets/59a6935d-67c6-4bf6-baff-bbd0515621ef)
+
+## File-Server und Backup
+
+### FIL01 - Samba Client & Benutzerverwaltung
+
+```bash
+sudo su
+smbclient -L //10.1.1.10 -k           # Zugriff auf Samba-Freigaben mit Kerberos (-k)
+sudo pdbedit -L
+smbclient -L //10.1.1.10
+ssh fs01
+sudo apt-get install rsync
+rsync -a Quellverzeichnis Zielverzeichnis  # Rsync für Datei-Synchronisation nutzen
+ssh fs02
+nano /etc/samba/smb.conf
+sudo nano /etc/samba/smb.conf
+sudo systemctl restart smbd               # Samba-Konfiguration bearbeiten und Dienst neu starten
+sudo nano backup_FL01.sh                   # Backup-Skript erstellen
+mv backup_FL01.sh /usr/local/bin/backup_FL01.sh
+sudo mv backup_FL01.sh /usr/local/bin/backup_FL01.sh
+```
+
+### SMB.Config - Samba Konfiguration (Beispiel)
+
+```ini
+ idmap config * : backend = tdb            ; ID-Mapping und Realm-Konfiguration für AD-Integration
+ idmap config * : range = 10000-999999
+ idmap config EIER : backend = rid
+ idmap config EIER : range = 10000-99999
+ realm = EIER.SCHAUKELN
+ workgroup = EIER
+ idmap config EIER : range = 2000000-2999999
+ idmap config EIER : backend = rid
+ winbind refresh tickets = yes
+ winbind offline logon = yes
+
+[freigabe]
+   path = /srv/samba/freigabe
+   browseable = yes
+   read only = no
+   writable = yes
+   valid users = "@EIER.SCHAUKELN\Domain Users"  ; Freigaben definieren: freigabe
+
+[homes]
+   path = /srv/samba/homes
+   comment = Home Directories
+   browseable = yes
+   read only = no
+   creat mask = 0700
+   writable = yes                                  #; Freigaben definieren: homes
+```
+
+### FIL02 - Netzwerk & Samba
+
+```bash
+su konsti@eier.schaukeln
+nano /etc/samba/smb.conf
+cp /etc/samba/smb.conf /etc/samba/smb.conf.old
+echo "" > /etc/samba/smb.conf                       # smb.conf leeren
+mkdir /srv/samba/freigabe
+service samba-ad-dc restart
+service samba-ad-dc status
+```
+
+### BAK01 - Backup Setup & SSH Keys
+
+```bash
+sudo mkdir -p /backups/server1
+sudo mkdir -p /backups/10.1.1.12
+sudo chown -R backupuser:backupuser /backups          # Backup-Verzeichnisse anlegen mit korrekten Rechten
+sudo chown -R backup-user@eier.schaukeln /backups
+sudo chown -R backup-user@eier.schaukeln:fileadmin@eier.schaukeln /backups
+ssh-keygen -t rsa
+ssh-copy-id backup-user@eier.schaukeln                  # SSH-Key-Setup für passwortlose Authentifizierung
+nano backupskript
+sudo mkdir -p /backup/FL01
+sudo mkdir -p /backup/FL02
+sudo mkdir -p /backup/SSLVPN
+sudo mkdir -p /backup/DC01
+sudo mkdir -p /backup/mailin
+sudo mkdir -p /backup/mailout
+sudo mkdir -p /backup/mail
+sudo mkdir -p /backup/GW
+chmod +x /usr/local/bin/backup.sh
+sudo chmod +x /usr/local/bin/backup.sh                   # Backup-Skript erstellen, ausführbar machen
+crontab -e
+exit
+```
