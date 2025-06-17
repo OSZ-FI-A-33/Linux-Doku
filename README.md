@@ -712,4 +712,4 @@ fi
 sudo crontab -e -u backupuser@eier.schaukeln                                # Editieren des Crontabs als Backup-User
 
 0 2 * * * /usr/local/bin/backup.sh >> /var/log/backup.log 2>&1              # Crontab Zeit vorgeben wann er durchläuft und wo dieser gespeichert wird
-
+´´´
