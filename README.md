@@ -623,8 +623,6 @@ ssh fs02
 nano /etc/samba/smb.conf
 sudo nano /etc/samba/smb.conf
 sudo systemctl restart smbd               # Samba-Konfiguration bearbeiten und Dienst neu starten
-xit
-exit
 sudo nano backup_FL01.sh                   # Backup-Skript erstellen
 exit
 sudo nano backup_FL01.sh
