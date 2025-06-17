@@ -725,9 +725,9 @@ rsync -azP --delete "$SRC_DIR" "$DEST_USER@$DEST_HOST:$DEST_DIR/$DATE" >> $LOGFI
 
 # --- Erfolg pr  fen ---
 if [ $? -eq 0 ]; then
-	echo "[$(date)] Backup erfolgreich abgeschlossen." >> $LOGFILE
+    echo "[$(date)] Backup erfolgreich abgeschlossen." >> $LOGFILE
 else
-	echo "[$(date)] Fehler beim Backup!" >> $LOGFILE
+    echo "[$(date)] Fehler beim Backup!" >> $LOGFILE
 fi
 
 sudo crontab -e -u backupuser@eier.schaukeln                                # Editieren des Crontabs als Backup-User
