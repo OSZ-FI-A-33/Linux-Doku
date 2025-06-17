@@ -550,6 +550,7 @@ apt update && apt install postfix rspamd clamav clamav-daemon mailutils
 ![image](https://github.com/user-attachments/assets/59c06b11-09ad-4790-ae63-17d970a6fdbf)
 
 ### Konfigurationsdatei bearbeiten /etc/postfix/main.cf
+
 ``` bash
 nano /etc/postfix/main.cf
 
@@ -581,6 +582,7 @@ nano /etc/hosts
 ``` bash
 sudo systemctl restart postfix
 ```
+
 ### Testmail mit lokalen User
 
 ``` bash
@@ -590,9 +592,3 @@ echo "Testmail-Inhalt" | mail -s "Testbetreff" user1@mail.eier.schaukeln
 ```
 
 ![image](https://github.com/user-attachments/assets/59a6935d-67c6-4bf6-baff-bbd0515621ef)
-
-
-
-
-
-
