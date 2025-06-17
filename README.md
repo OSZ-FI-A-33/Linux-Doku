@@ -600,39 +600,24 @@ echo "Testmail-Inhalt" | mail -s "Testbetreff" user1@mail.eier.schaukeln
 
 ```bash
 sudo su
-smbclient -L //server-ip -k               # Zugriff auf Samba-Freigaben mit Kerberos (-k)
-smbclient -L //10.1.1.10 -k
-exit
-smbclient -L //10.1.1.10 -k
-sudo pdbedit -L
-sudo smbpasswd -a dein-benutzer           # Benutzer anlegen und Samba-Passwort setzen
-sudo smbpasswd -a lemme.n
-getent passwd lemme.
-getent passwd lemme.n
-sudo useradd -m -s /bin/bash lemme.n
-sudo passwd lemme.n
-sudo smbpasswd -a lemme.n
-smbclient -L //10.1.1.10 -k
+smbclient -L //10.1.1.10 -k           # Zugriff auf Samba-Freigaben mit Kerberos (-k)
 sudo pdbedit -L
 smbclient -L //10.1.1.10
 ssh fs01
 sudo apt-get install rsync
 rsync -a Quellverzeichnis Zielverzeichnis  # Rsync für Datei-Synchronisation nutzen
-fs02
 ssh fs02
 nano /etc/samba/smb.conf
 sudo nano /etc/samba/smb.conf
 sudo systemctl restart smbd               # Samba-Konfiguration bearbeiten und Dienst neu starten
 sudo nano backup_FL01.sh                   # Backup-Skript erstellen
-exit
-sudo nano backup_FL01.sh
 mv backup_FL01.sh /usr/local/bin/backup_FL01.sh
 sudo mv backup_FL01.sh /usr/local/bin/backup_FL01.sh
 ```
 
 ### SMB.Config - Samba Konfiguration (Beispiel)
 
-```bash
+```ini
  idmap config * : backend = tdb            ; ID-Mapping und Realm-Konfiguration für AD-Integration
  idmap config * : range = 10000-999999
  idmap config EIER : backend = rid
@@ -670,9 +655,6 @@ echo "" > /etc/samba/smb.conf                       # smb.conf leeren
 mkdir /srv/samba/freigabe
 service samba-ad-dc restart
 service samba-ad-dc status
-testparm
-testparm -d
-sudo testparm -s
 ```
 
 ### BAK01 - Backup Setup & SSH Keys
