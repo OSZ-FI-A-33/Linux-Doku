@@ -598,7 +598,7 @@ echo "Testmail-Inhalt" | mail -s "Testbetreff" user1@mail.eier.schaukeln
 # ------------------------
 # FIL01 - Samba Client & Benutzerverwaltung
 # ------------------------
-
+```bash
 sudo su
 smbclient -L //server-ip -k               # Zugriff auf Samba-Freigaben mit Kerberos (-k)
 smbclient -L //10.1.1.10 -k
@@ -630,21 +630,21 @@ exit
 sudo nano backup_FL01.sh
 mv backup_FL01.sh /usr/local/bin/backup_FL01.sh
 sudo mv backup_FL01.sh /usr/local/bin/backup_FL01.sh
-
+```
 # ------------------------
 # SMB.Config - Samba Konfiguration (Beispiel)
 # ------------------------
-
-# idmap config * : backend = tdb            ; ID-Mapping und Realm-Konfiguration für AD-Integration
-# idmap config * : range = 10000-999999
-# idmap config EIER : backend = rid
-# idmap config EIER : range = 10000-99999
-# realm = EIER.SCHAUKELN
-# workgroup = EIER
-# idmap config EIER : range = 2000000-2999999
-# idmap config EIER : backend = rid
-# winbind refresh tickets = yes
-# winbind offline logon = yes
+```bash
+ idmap config * : backend = tdb            ; ID-Mapping und Realm-Konfiguration für AD-Integration
+ idmap config * : range = 10000-999999
+ idmap config EIER : backend = rid
+ idmap config EIER : range = 10000-99999
+ realm = EIER.SCHAUKELN
+ workgroup = EIER
+ idmap config EIER : range = 2000000-2999999
+ idmap config EIER : backend = rid
+ winbind refresh tickets = yes
+ winbind offline logon = yes
 
 [freigabe]
    path = /srv/samba/freigabe
@@ -660,11 +660,11 @@ sudo mv backup_FL01.sh /usr/local/bin/backup_FL01.sh
    read only = no
    creat mask = 0700
    writable = yes                                  ; Freigaben definieren: homes
-
+```
 # ------------------------
 # FIL02 - Netzwerk, Kerberos, Samba & AD Join
 # ------------------------
-
+```bash
 history
 exit
 exit
@@ -765,11 +765,11 @@ service samba-ad-dc status
 testparm
 testparm -d
 sudo testparm -s
-
+```
 # ------------------------
 # BAK01 - Backup Setup & SSH Keys
 # ------------------------
-
+```bash
 sudo mkdir -p /backups/server1
 sudo mkdir -p /backups/10.1.1.12
 sudo chown -R backupuser:backupuser /backups          # Backup-Verzeichnisse anlegen mit korrekten Rechten
@@ -791,3 +791,4 @@ chmod +x /usr/local/bin/backup.sh
 sudo chmod +x /usr/local/bin/backup.sh                   # Backup-Skript erstellen, ausführbar machen
 crontab -e
 exit
+```
