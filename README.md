@@ -592,3 +592,202 @@ echo "Testmail-Inhalt" | mail -s "Testbetreff" user1@mail.eier.schaukeln
 ```
 
 ![image](https://github.com/user-attachments/assets/59a6935d-67c6-4bf6-baff-bbd0515621ef)
+
+# Linux Dokumentation für Samba, AD und Backup
+
+# ------------------------
+# FIL01 - Samba Client & Benutzerverwaltung
+# ------------------------
+
+sudo su
+smbclient -L //server-ip -k               # Zugriff auf Samba-Freigaben mit Kerberos (-k)
+smbclient -L //10.1.1.10 -k
+exit
+smbclient -L //10.1.1.10 -k
+sudo pdbedit -L
+sudo smbpasswd -a dein-benutzer           # Benutzer anlegen und Samba-Passwort setzen
+sudo smbpasswd -a lemme.n
+getent passwd lemme.
+getent passwd lemme.n
+sudo useradd -m -s /bin/bash lemme.n
+sudo passwd lemme.n
+sudo smbpasswd -a lemme.n
+smbclient -L //10.1.1.10 -k
+sudo pdbedit -L
+smbclient -L //10.1.1.10
+ssh fs01
+sudo apt-get install rsync
+rsync -a Quellverzeichnis Zielverzeichnis  # Rsync für Datei-Synchronisation nutzen
+fs02
+ssh fs02
+nano /etc/samba/smb.conf
+sudo nano /etc/samba/smb.conf
+sudo systemctl restart smbd               # Samba-Konfiguration bearbeiten und Dienst neu starten
+xit
+exit
+sudo nano backup_FL01.sh                   # Backup-Skript erstellen
+exit
+sudo nano backup_FL01.sh
+mv backup_FL01.sh /usr/local/bin/backup_FL01.sh
+sudo mv backup_FL01.sh /usr/local/bin/backup_FL01.sh
+
+# ------------------------
+# SMB.Config - Samba Konfiguration (Beispiel)
+# ------------------------
+
+# idmap config * : backend = tdb            ; ID-Mapping und Realm-Konfiguration für AD-Integration
+# idmap config * : range = 10000-999999
+# idmap config EIER : backend = rid
+# idmap config EIER : range = 10000-99999
+# realm = EIER.SCHAUKELN
+# workgroup = EIER
+# idmap config EIER : range = 2000000-2999999
+# idmap config EIER : backend = rid
+# winbind refresh tickets = yes
+# winbind offline logon = yes
+
+[freigabe]
+   path = /srv/samba/freigabe
+   browseable = yes
+   read only = no
+   writable = yes
+   valid users = "@EIER.SCHAUKELN\Domain Users"  ; Freigaben definieren: freigabe
+
+[homes]
+   path = /srv/samba/homes
+   comment = Home Directories
+   browseable = yes
+   read only = no
+   creat mask = 0700
+   writable = yes                                  ; Freigaben definieren: homes
+
+# ------------------------
+# FIL02 - Netzwerk, Kerberos, Samba & AD Join
+# ------------------------
+
+history
+exit
+exit
+shutdown now
+ip a
+nano /etc/network/interfaces
+service networking restart
+nano /etc/ssh/sshd_config
+nano /etc/hostname
+reboot now
+nano /etc/resolv.conf
+nslookup eier.schaukeln
+nslookup dc01.eier.schaukeln
+host eier.schaukeln
+nslookup 10.1.1.5
+host 10.1.1.5
+nano /etc/krb5.conf
+rm /etc/krb5.conf
+sudo apt update && sudo apt upgrade -y
+apt install sudo
+sudo apt update && sudo apt upgrade -y
+sudo apt install samba winbind libpam-winbind libnss-winbind krb5-user
+sudoedit /etc/krb5.conf
+kinit Administrator@EIER.SCHAUKELN          # Kerberos Setup & Ticket-Management (kinit)
+nano /etc/samba/smb.conf
+cp /etc/samba/smb.conf /etc/samba/smb.conf.bak
+echo "" > /etc/samba/smb.conf
+nano /etc/samba/smb.conf
+sudo systemctl restart smbd nmbd winbind    # Samba- und Winbind Installation und Konfiguration
+sudo systemctl enable smbd nmbd winbind
+journalctl -xeu winbind.service
+sudo net ads testjoin
+sudo net ads join -U administrator            # Active Directory Join & DNS-Update mit net ads
+sudo net ads testjoin
+host -t A dein-dc.eier.schaukeln
+host -t SRV _ldap._tcp.eier.schaukeln
+host -t A dc01.eier.schaukeln
+sudo net ads join -U administrator --no-dns-updates
+nsupdate -g
+update delete fs02.eier.schaukeln A
+update add fs02.eier.schaukeln 3600 A 192.168.1.100
+send
+sudo hostnamectl set-hostname fs02.eier.schaukeln
+nano /etc/hostname
+reboot now
+sudo apt update
+apt install samba -y
+mkdir -p /srv/samba/share
+chmod 777 /srv/samba/share
+nano /etc/samba/smb.conf
+apt update && sudo apt install smbclient
+smbclient -L //10.1.1.11
+net ads join -U administrator -d 3
+nano /etc/resolv.conf
+nano /etc/hosts
+sudo systemctl restart systemd-hostnamed
+nslookup fs02.eier.schaukeln
+kinit administrator@EIER.SCHAUKELN
+hostname -f
+hostname -d
+sudo nano /etc/hosts
+sudo systemctl restart systemd-hostnamed
+realm permit -g FileAdmin@EIER.SCHAUKELN
+apt-get install -y sssd-ad sssd-tools realmd adcli
+id administrator
+su administrator@eier.schaukeln
+pam-auth-update
+nano /etc/sudoers
+sudo su administrator
+id lemme.n@eier.schaukeln
+sudo nano /etc/sudoers
+reboot now
+realm list
+realm permit -g fileadmin@eier.schaukeln
+apt-get install -y krb5-user sssd-krb5
+nano /etc/krb5.conf
+pam-auth-update
+apt install sudo
+apt reinstall sudo
+nano /etc/sudoers
+kinit konsti
+systemctl restart sssd
+apt install -f realmd sssd sssd-tools libnss-sss libpam-sss adcli samba-common-bin oddjob oddjob-mkhomedir packagekit
+cat /etc/sssd/sssd.conf
+realm discover eier.schaukeln
+sssctl user-checks konsti
+realm join -U administrator eier.schaukeln
+realm leave -U administrator eier.schaukeln
+realm join -U administrator eier.schaukeln
+id administrator@eier.schaukeln
+su konsti@eier.schaukeln
+nano /etc/samba/smb.conf
+cp /etc/samba/smb.conf /etc/samba/smb.conf.old
+echo "" > /etc/samba/smb.conf
+mkdir /srv/samba/freigabe
+service samba-ad-dc restart
+service samba-ad-dc status
+testparm
+testparm -d
+sudo testparm -s
+
+# ------------------------
+# BAK01 - Backup Setup & SSH Keys
+# ------------------------
+
+sudo mkdir -p /backups/server1
+sudo mkdir -p /backups/10.1.1.12
+sudo chown -R backupuser:backupuser /backups          # Backup-Verzeichnisse anlegen mit korrekten Rechten
+sudo chown -R backup-user@eier.schaukeln /backups
+sudo chown -R backup-user@eier.schaukeln:fileadmin@eier.schaukeln /backups
+ssh-keygen -t rsa
+ssh-copy-id backup-user@eier.schaukeln                  # SSH-Key-Setup für passwortlose Authentifizierung
+ssh-copy-id root@eier.schaukeln
+nano backupskript
+sudo mkdir -p /backup/FL01
+sudo mkdir -p /backup/FL02
+sudo mkdir -p /backup/SSLVPN
+sudo mkdir -p /backup/DC01
+sudo mkdir -p /backup/mailin
+sudo mkdir -p /backup/mailout
+sudo mkdir -p /backup/mail
+sudo mkdir -p /backup/GW
+chmod +x /usr/local/bin/backup.sh
+sudo chmod +x /usr/local/bin/backup.sh                   # Backup-Skript erstellen, ausführbar machen
+crontab -e
+exit
