@@ -633,9 +633,6 @@ sudo mv backup_FL01.sh /usr/local/bin/backup_FL01.sh
 
 ### SMB.Config - Samba Konfiguration (Beispiel)
 
-
-### SMB.Config - Samba Konfiguration (Beispiel)
-
 ```bash
  idmap config * : backend = tdb            ; ID-Mapping und Realm-Konfiguration für AD-Integration
  idmap config * : range = 10000-999999
@@ -663,9 +660,6 @@ sudo mv backup_FL01.sh /usr/local/bin/backup_FL01.sh
    creat mask = 0700
    writable = yes                                  ; Freigaben definieren: homes
 ```
-
-### FIL02 - Netzwerk, Kerberos, Samba & AD Join
-
 
 ### FIL02 - Netzwerk, Kerberos, Samba & AD Join
 
@@ -767,9 +761,6 @@ testparm
 testparm -d
 sudo testparm -s
 ```
-
-### BAK01 - Backup Setup & SSH Keys
-
 
 ### BAK01 - Backup Setup & SSH Keys
 
