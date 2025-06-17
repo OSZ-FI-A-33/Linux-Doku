@@ -685,15 +685,15 @@ sudo nano /usr/local/bin/backup.sh                       # Verzeichnis für Back
 #!/bin/bash                                              # Backup Skript, ist beim Hostname jeweil für den jeweiligen Server angepasst
 
 # ===============================
-# Backup-Skript für Server FL01
+# Backup-Skript für Server fs01
 # ===============================
 
 # --- Konfiguration ---
-HOSTNAME="FL01"
+HOSTNAME="fs01"
 SRC_DIR="/srv/files"
-DEST_USER="backupuser"
+DEST_USER="backupuser@eier.schaukeln"
 DEST_HOST="10.1.1.12"
-DEST_DIR="/backups/$HOSTNAME"
+DEST_DIR="/backup/$HOSTNAME"
 DATE=$(date +%F)
 LOGFILE="/var/log/backup_$HOSTNAME.log"
 
