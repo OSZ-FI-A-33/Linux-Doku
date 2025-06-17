@@ -8,6 +8,7 @@
 - [VPN Server Setup](#vpn-server-setup)
 - [Firewall](#firewall)
 - [Mail-Server](#mail-server)
+- [File-Server und Backup](#file-server-und-backup)
 
 ## Netzwerkplan
 
@@ -593,7 +594,7 @@ echo "Testmail-Inhalt" | mail -s "Testbetreff" user1@mail.eier.schaukeln
 
 ![image](https://github.com/user-attachments/assets/59a6935d-67c6-4bf6-baff-bbd0515621ef)
 
-## Linux Dokumentation für Samba, AD und Backup
+## File-Server und Backup
 
 ### FIL01 - Samba Client & Benutzerverwaltung
 
