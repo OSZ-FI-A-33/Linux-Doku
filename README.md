@@ -657,7 +657,7 @@ sudo mv backup_FL01.sh /usr/local/bin/backup_FL01.sh
    browseable = yes
    read only = no
    creat mask = 0700
-   writable = yes                                  ; Freigaben definieren: homes
+   writable = yes                                  #; Freigaben definieren: homes
 ```
 
 ### FIL02 - Netzwerk & Samba
@@ -666,7 +666,7 @@ sudo mv backup_FL01.sh /usr/local/bin/backup_FL01.sh
 su konsti@eier.schaukeln
 nano /etc/samba/smb.conf
 cp /etc/samba/smb.conf /etc/samba/smb.conf.old
-echo "" > /etc/samba/smb.conf
+echo "" > /etc/samba/smb.conf                       # smb.conf leeren
 mkdir /srv/samba/freigabe
 service samba-ad-dc restart
 service samba-ad-dc status
@@ -685,7 +685,6 @@ sudo chown -R backup-user@eier.schaukeln /backups
 sudo chown -R backup-user@eier.schaukeln:fileadmin@eier.schaukeln /backups
 ssh-keygen -t rsa
 ssh-copy-id backup-user@eier.schaukeln                  # SSH-Key-Setup für passwortlose Authentifizierung
-
 nano backupskript
 sudo mkdir -p /backup/FL01
 sudo mkdir -p /backup/FL02
