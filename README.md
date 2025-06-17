@@ -665,10 +665,6 @@ sudo mv backup_FL01.sh /usr/local/bin/backup_FL01.sh
 ### FIL02 - Netzwerk, Kerberos, Samba & AD Join
 
 ```bash
-history
-exit
-exit
-shutdown now
 ip a
 nano /etc/network/interfaces
 service networking restart
