@@ -679,5 +679,37 @@ sudo mkdir -p /backup/GW
 chmod +x /usr/local/bin/backup.sh
 sudo chmod +x /usr/local/bin/backup.sh                   # Backup-Skript erstellen, ausführbar machen
 crontab -e
-exit
-```
+
+sudo nano /usr/local/bin/backup.sh                       # Verzeichnis für Backup Skript erstellen und öffnen 
+
+#!/bin/bash                                              # Backup Skript, ist beim Hostname jeweil für den jeweiligen Server angepasst
+
+# ===============================
+# Backup-Skript für Server FL01
+# ===============================
+
+# --- Konfiguration ---
+HOSTNAME="FL01"
+SRC_DIR="/srv/files"
+DEST_USER="backupuser"
+DEST_HOST="10.1.1.12"
+DEST_DIR="/backups/$HOSTNAME"
+DATE=$(date +%F)
+LOGFILE="/var/log/backup_$HOSTNAME.log"
+
+# --- Backup ausführen ---
+echo "[$(date)] Backup startet..." >> $LOGFILE
+
+rsync -azP --delete "$SRC_DIR" "$DEST_USER@$DEST_HOST:$DEST_DIR/$DATE" >> $LOGFILE 2>&1
+
+# --- Erfolg prüfen ---
+if [ $? -eq 0 ]; then
+    echo "[$(date)] Backup erfolgreich abgeschlossen." >> $LOGFILE
+else
+    echo "[$(date)] Fehler beim Backup!" >> $LOGFILE
+fi
+
+sudo crontab -e -u backupuser@eier.schaukeln                                # Editieren des Crontabs als Backup-User
+
+0 2 * * * /usr/local/bin/backup.sh >> /var/log/backup.log 2>&1              # Crontab Zeit vorgeben wann er durchläuft und wo dieser gespeichert wird
+
