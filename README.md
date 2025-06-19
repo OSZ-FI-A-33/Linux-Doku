@@ -7,7 +7,7 @@
 - [Weitere Konfigurationsschritte für Active Directory-Anbindung](#weitere-konfigurationsschritte-für-active-directory-anbindung)
 - [VPN Server Setup](#vpn-server-setup)
 - [Firewall](#firewall)
-- [Mail-Server (+Mail-in,Mail-out)](#mail-server)
+- [Mail-Server (mit Mail-in und Mail-out)](#mail-server-mit-mail-in-und-mail-out)
 - [File-Server und Backup](#file-server-und-backup)
 
 ## Netzwerkplan
@@ -536,7 +536,7 @@ ufw status verbose
 
 ![Routingtabelle](firewall.PNG)
 
-## Mail-Server (+Mail-in,Mail-out)
+## Mail-Server (mit Mail-in und Mail-out)
 
 Install von Mailsoftware (auch bei dem Mail-in, Mail-out)
 
@@ -544,7 +544,7 @@ Install von Mailsoftware (auch bei dem Mail-in, Mail-out)
 apt update && apt install postfix rspamd clamav clamav-daemon mailutils
 ```
 
-### Postfix Configuration 
+### Postfix Configuration
 
 ![image](https://github.com/user-attachments/assets/346d1d92-0f38-44d3-bf54-46435d3a00ca)
 
