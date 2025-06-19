@@ -7,7 +7,7 @@
 - [Weitere Konfigurationsschritte für Active Directory-Anbindung](#weitere-konfigurationsschritte-für-active-directory-anbindung)
 - [VPN Server Setup](#vpn-server-setup)
 - [Firewall](#firewall)
-- [Mail-Server](#mail-server)
+- [Mail-Server (+Mail-in,Mail-out)](#mail-server)
 - [File-Server und Backup](#file-server-und-backup)
 
 ## Netzwerkplan
@@ -536,21 +536,21 @@ ufw status verbose
 
 ![Routingtabelle](firewall.PNG)
 
-## Mail-Server
+## Mail-Server (+Mail-in,Mail-out)
 
-Install von Mailsoftware
+Install von Mailsoftware (auch bei dem Mail-in, Mail-out)
 
 ``` bash
 apt update && apt install postfix rspamd clamav clamav-daemon mailutils
 ```
 
-### Postfix Configuration
+### Postfix Configuration 
 
 ![image](https://github.com/user-attachments/assets/346d1d92-0f38-44d3-bf54-46435d3a00ca)
 
 ![image](https://github.com/user-attachments/assets/59c06b11-09ad-4790-ae63-17d970a6fdbf)
 
-### Konfigurationsdatei bearbeiten /etc/postfix/main.cf
+### Konfigurationsdatei bearbeiten /etc/postfix/main.cf (bei dem Mail-in, Mail-out andere Domain eintragen)
 
 ``` bash
 nano /etc/postfix/main.cf
@@ -564,7 +564,7 @@ relayhost =  # (Leer lassen, kein Forwarding)
 mynetworks = 127.0.0.0/8  # Nur localhost darf Mails senden
 ```
 
-### Hostname setzen
+### Hostname setzen (auch bei dem Mail-in, Mail-out)
 
 ``` bash
 sudo hostnamectl set-hostname mail.eier.schaukeln
