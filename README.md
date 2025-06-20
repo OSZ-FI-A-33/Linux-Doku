@@ -4,7 +4,6 @@
 
 - [Netzwerkplan](#netzwerkplan)
 - [Active Directory Setup](#active-directory-setup)
-- [Weitere Konfigurationsschritte für Active Directory-Anbindung](#weitere-konfigurationsschritte-für-active-directory-anbindung)
 - [VPN Server Setup](#vpn-server-setup)
 - [Firewall](#firewall)
 - [Mail-Server (mit Mail-in und Mail-out)](#mail-server-mit-mail-in-und-mail-out)
@@ -159,12 +158,16 @@ realm                      # Domain-Join Informationen anzeigen
 exit                       # Sitzung verlassen
 ```
 
-## Weitere Konfigurationsschritte für Active Directory-Anbindung
+### Client installation
+
+[AutoFS](install_autofs.sh)
+
+Weitere Konfigurationsschritte für Active Directory-Anbindung
 
 ### Grundlegende Netzwerkprüfung
 
 ```bash
-ping 10.1.1.1
+ping 10.1.1.X
 ip a
 ```
 
