@@ -4,7 +4,6 @@
 
 - [Netzwerkplan](#netzwerkplan)
 - [Active Directory Setup](#active-directory-setup)
-- [Weitere Konfigurationsschritte für Active Directory-Anbindung](#weitere-konfigurationsschritte-für-active-directory-anbindung)
 - [VPN Server Setup](#vpn-server-setup)
 - [Firewall](#firewall)
 - [Mail-Server (mit Mail-in und Mail-out)](#mail-server-mit-mail-in-und-mail-out)
