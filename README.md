@@ -304,6 +304,16 @@ Wichtige Server-Dateien, die für den OpenVPN-Server benötigt werden:
 /etc/openvpn/server/ta.key
 ```
 
+### Connecting Client
+
+Um sich mit dem OpenVPN-Server zu verbinden, die Client Files auf dem Client in ein Verzeichnis kopieren und mit diesem Befehl in dem Verzeichnis starten:
+
+```bash
+sudo openvpn --config ./client.conf
+```
+
+![OpenVPN Connection](openvpn-connection.png)
+
 ### Server Config File (/etc/openvpn/server.conf)
 
 ```text
