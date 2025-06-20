@@ -162,7 +162,6 @@ exit                       # Sitzung verlassen
 
 [AutoFS](install_autofs.sh)
 
-
 ### Grundlegende Netzwerkprüfung
 
 ```bash
