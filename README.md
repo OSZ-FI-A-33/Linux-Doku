@@ -162,7 +162,6 @@ exit                       # Sitzung verlassen
 
 [AutoFS](install_autofs.sh)
 
-Weitere Konfigurationsschritte für Active Directory-Anbindung
 
 ### Grundlegende Netzwerkprüfung
 
