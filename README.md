@@ -161,7 +161,7 @@ exit                       # Sitzung verlassen
 
 ### Client installation
 
-![AutoFS](install_autofs.sh)
+[AutoFS](install_autofs.sh)
 
 Weitere Konfigurationsschritte für Active Directory-Anbindung
 
