@@ -159,12 +159,16 @@ realm                      # Domain-Join Informationen anzeigen
 exit                       # Sitzung verlassen
 ```
 
-## Weitere Konfigurationsschritte für Active Directory-Anbindung
+### Client installation
+
+![AutoFS](install_autofs.sh)
+
+Weitere Konfigurationsschritte für Active Directory-Anbindung
 
 ### Grundlegende Netzwerkprüfung
 
 ```bash
-ping 10.1.1.1
+ping 10.1.1.X
 ip a
 ```
 
